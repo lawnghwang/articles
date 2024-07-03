@@ -1,0 +1,150 @@
+---
+title: "US Oversea Stationed Troops"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+date: "2024-06-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+##Read csv.
+troop <- read.csv("troopdata.csv",header=TRUE,sep=";")
+
+##Eliminate NA value, North America, Afloat; and retrict data from 2000 to 2021
+ftroop <- troop %>% filter(!is.na(countryname)&!is.na(region)&region!="North America"&countryname!="Afloat"&year>=2000&year<=2021)
+
+##Change some regions' name into "Other regions" category
+ft <- ftroop$region %in% c("South Asia","Sub-Saharan Africa","Latin America & Caribbean")
+ftroop$region <- ifelse(ft,"Other regions",ftroop$region)
+
+##Rename the regions
+library(forcats)
+ftroop$region <- fct_recode(ftroop$region,"Đông Á & Thái Bình Dương"="East Asia & Pacific","Châu Âu & Trung Á"="Europe & Central Asia", "Trung Đông & Bắc Phi"="Middle East & North Africa","Các khu vực khác"="Other regions")
+
+##Draw the graph
+ggplot(ftroop, aes(year,troops,fill=region))+
+  geom_area(stat="summary",fun=sum)+
+  scale_y_continuous(labels = scales::comma)+ 
+  labs(title = "Lực lượng quân đồn trú của Mỹ theo khu vực, giai đoạn 2000-2020, người",y="Số lượng quân",color="Khu vực", caption="Nguồn: Tác giả tổng hợp từ số liệu của Allen và cộng sự (2021)")+
+  theme(axis.title.x = element_blank()). #in which scale_y_continuous(name="Troops", labels = scales::comma) tells the y-axis to rename as "Troops" and include all the zeros for numbers, instead of e+05.
+```
+
+
+```{r}
+
+library(readxl)
+library(magrittr)
+library(dplyr)
+
+sipri <- read_excel("SIPRI-Milex-data-1949-2022.xlsx",sheet = "Current US$",skip=5)
+
+country_keep <- c("Mỹ","Trung Quốc","Ấn Độ","Nhật Bản","Nga")
+
+fsipri <- sipri[,c(1,54:76)] %>% filter(sipri$Country %in% country_keep)
+
+library(reshape2)
+
+reshaped_fsipri <- melt(fsipri, id.vars = 1)
+reshaped_fsipri <- reshaped_fsipri %>% arrange(Country)
+
+library(ggplot2)
+ggplot(reshaped_fsipri, aes(x = as.numeric(variable), y = as.numeric(value), color = factor(Country))) +
+    geom_line(stat="summary",fun=sum,aes(linetype=factor(Country))) +
+    scale_y_continuous(labels = scales::comma)+
+    labs(title = "Chi tiêu quốc phòng của Mỹ và một vài quốc gia, giai đoạn 2000-2022, triệu USD",caption="Nguồn: Tác giả tổng hợp từ số liệu của SIPRI (2021)") +
+  theme(axis.title.x = element_blank(),axis.title.y = element_blank())
+
+                                                                                           
+```
+
+
+```{r}
+#Create a world map
+library(readxl)
+library(dplyr)
+
+map <- read_excel("DMDC_Website_Location_Report_2209.xlsx",sheet = "Map R") #Read excel file, with specifically sheet "Map R"
+colnames(map)[colnames(map) == "DUTY STATE / COUNTRY...2"] <- "region" #Change the column's name to "region"
+
+library(ggplot2)
+library(tidyverse) 
+
+mapdata <- map_data("world") #to get data for the world's map
+mapdata <- left_join(mapdata,map,by="region")
+
+map1 <- ggplot(mapdata,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=TOTAL),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(name="Số quân",axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "Bố trí lực lượng tại ngũ* chính của Mỹ trên toàn cầu (trừ Mỹ), tháng 9/2022, người", caption="Nguồn: Tác giả tổng hợp từ số liệu của Văn phòng Bộ Quốc phòng Hoa Kỳ (2022)")
+map1
+
+
+```
+
+```{r}
+#Create Asia's map
+
+library(readxl)
+
+A_map <- read_excel("DMDC_Website_Location_Report_2209.xlsx",sheet = "Asia")
+colnames(A_map)[colnames(A_map) == "DUTY STATE / COUNTRY...2"] <- "region"
+
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+
+A_mapdata <- map_data("world")
+A_mapdata <- left_join(A_mapdata,A_map,by="region")
+A_mapdata1 <- A_mapdata %>% filter(!is.na(A_mapdata$`DUTY STATE / COUNTRY...1`))
+
+map_A <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=TOTAL),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "Bố trí lực lượng tại ngũ* chính của Mỹ ở khu vực Đông Á - Thái Bình Dương, tháng 9/2022, người", caption="Nguồn: Tác giả tổng hợp từ số liệu của Văn phòng Bộ Quốc phòng Hoa Kỳ (2022)")
+map_A
+
+#Create Europe's map
+
+E_map <- read_excel("DMDC_Website_Location_Report_2209.xlsx",sheet = "Europe")
+colnames(E_map)[colnames(E_map) == "DUTY STATE / COUNTRY...2"] <- "region"
+
+E_mapdata <- map_data("world")
+E_mapdata <- left_join(E_mapdata,E_map,by="region")
+E_mapdata1 <- E_mapdata %>% filter(!is.na(E_mapdata$`DUTY STATE / COUNTRY...1`))
+
+map_E <- ggplot(E_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=TOTAL),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "Bố trí lực lượng tại ngũ* chính của Mỹ ở khu vực châu Âu, tháng 9/2022, người", caption="Nguồn: Tác giả tổng hợp từ số liệu của Văn phòng Bộ Quốc phòng Hoa Kỳ (2022)")
+map_E
+
+#Create East Europe's map
+
+EE_map <- read_excel("DMDC_Website_Location_Report_2209.xlsx",sheet = "Europe 2")
+colnames(EE_map)[colnames(EE_map) == "DUTY STATE / COUNTRY...2"] <- "region"
+
+EE_mapdata <- map_data("world")
+EE_mapdata <- left_join(EE_mapdata,EE_map,by="region")
+EE_mapdata1 <- EE_mapdata %>% filter(!is.na(EE_mapdata$`DUTY STATE / COUNTRY...1`))
+
+map_EE <- ggplot(EE_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=TOTAL),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "Bố trí lực lượng tại ngũ* chính của Mỹ ở khu vực Đông Âu, tháng 9/2022, người", caption="Nguồn: Tác giả tổng hợp từ số liệu của Văn phòng Bộ Quốc phòng Hoa Kỳ (2022)")
+map_EE
+
+#Create Middle East's map
+
+ME_map <- read_excel("DMDC_Website_Location_Report_2209.xlsx",sheet = "Middle East")
+colnames(ME_map)[colnames(ME_map) == "DUTY STATE / COUNTRY...2"] <- "region"
+
+ME_mapdata <- map_data("world")
+ME_mapdata <- left_join(ME_mapdata,ME_map,by="region")
+ME_mapdata1 <- ME_mapdata %>% filter(!is.na(ME_mapdata$`DUTY STATE / COUNTRY...1`))
+
+map_ME <- ggplot(ME_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=TOTAL),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "Bố trí lực lượng tại ngũ* chính của Mỹ ở Trung Đông, tháng 9/2022, người", caption="Nguồn: Tác giả tổng hợp từ số liệu của Văn phòng Bộ Quốc phòng Hoa Kỳ (2022)")
+map_ME
+
+#Create a multiple graphs in one 
+grid.arrange(map_E, map_EE, map_A, map_ME, nrow = 2, ncol = 2)
+
+```
+
