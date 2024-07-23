@@ -1,0 +1,171 @@
+---
+title: "China military industry"
+output:
+  pdf_document: default
+  html_document: default
+date: "2024-07-07"
+---
+
+```{r}
+library(readxl)
+library(dplyr)
+
+#Expenditure as value
+exp <- read_excel("China military industry.xlsx",sheet="R&D exp")
+keepcountry <- c("CHN","JPN","USA","GBR","DEU","KOR")
+exp <- exp %>% filter(exp$LOCATION %in% keepcountry)
+
+##Rename the regions
+library(forcats)
+exp$LOCATION <- fct_recode(exp$LOCATION,"Trung Quốc"="CHN","Nhật Bản"="JPN", "Hoa Kỳ"="USA","Vương quốc Anh"="GBR","Đức"="DEU","Hàn Quốc"="KOR")
+
+
+library(ggplot2)
+
+gvalue <- ggplot(exp, aes(x = TIME, y = Value, color = factor(LOCATION))) +
+    geom_line(stat="summary",fun=sum,aes(linetype=factor(LOCATION))) +
+    scale_y_continuous(labels = scales::comma)+
+    labs(title = "Xu hướng chi tiêu cho hoạt động nghiên cứu và phát triển (R&D) của Trung Quốc và một vài quốc gia, giai đoạn 2000-2021, theo đơn vị triệu USD",caption = "Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023)") +
+  theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())
+gvalue
+
+#Percentage of GDP
+per <- read_excel("China military industry.xlsx",sheet="%GDP")
+per <- per %>% filter(per$LOCATION %in% keepcountry)
+
+##Rename the regions
+per$LOCATION <- fct_recode(per$LOCATION,"Trung Quốc"="CHN","Nhật Bản"="JPN", "Hoa Kỳ"="USA","Vương quốc Anh"="GBR","Đức"="DEU","Hàn Quốc"="KOR")
+
+gper <- ggplot(per, aes(x = TIME, y = Value, color = factor(LOCATION))) +
+    geom_line(stat="summary",fun=sum,aes(linetype=factor(LOCATION))) +
+    scale_y_continuous(labels = scales::comma)+
+    labs(title = "Xu hướng chi tiêu cho hoạt động nghiên cứu và phát triển (R&D) của Trung Quốc và một vài quốc gia, giai đoạn 2000-2021, theo % trong tổng GDP quốc gia",caption = "Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023)") +
+  theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())
+gper
+
+library(gridExtra)
+gboth <- grid.arrange(gvalue,gper, nrow = 2, ncol = 1)
+gboth
+
+```
+
+```{r}
+
+def <- read_excel("China military industry.xlsx",sheet="R&D on Def",skip=5)
+keepcountry1 <- c("Germany","Japan","United States","UK","South Korea","China")
+def <- def[,c(1,9)] %>% filter(def$Country %in% keepcountry1)
+
+##Rename the countries
+def$Country <- fct_recode(def$Country,"Đức"="Germany","Nhật Bản"="Japan", "Hoa Kỳ"="United States","Vương quốc Anh"="UK","Trung Quốc"="China","Hàn Quốc"="South Korea")
+
+gdef <- ggplot(def, aes(x= Country, y = as.numeric(...9), fill=Country)) +
+    geom_col() +
+    scale_y_continuous(labels = scales::comma)+
+    scale_x_discrete(limits=c("Hoa Kỳ", "Trung Quốc", "Hàn Quốc", "Vương quốc Anh", "Đức", "Nhật Bản"))+
+    labs(title = "Chi tiêu R&D cho quốc phòng của Trung Quốc và một vài quốc gia, năm 2018, triệu USD",caption = "Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023) và CSET (2019)") +
+  theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())
+
+gdef
+
+
+```
+
+
+
+```{r}
+prof <- read_excel("China military industry.xlsx",sheet="Profit of arms company")
+
+prof <- prof[c(9:10),]
+
+##Transpose the data
+reshaped_prof <- t(prof[,-1]) 
+
+##Add a new column for the year 
+Year <- c(2015:2021)
+
+reshaped_prof1 <- cbind(reshaped_prof,Year)
+colnames(reshaped_prof1)[1] <- "USD" #Name a column that has no name
+colnames(reshaped_prof1)[2] <- "Percentage"
+
+reshaped_prof1 <- as.data.frame(reshaped_prof1) #Convert vector to data frame
+reshaped_prof1$Year  <- as.factor(Year)
+
+library(patchwork) # To display 2 charts together
+
+reshaped_prof1 <- cbind(reshaped_prof1,Percentage1 = reshaped_prof1$Percentage*100)
+
+
+##Draw the graph with two Y axis
+gprof <- ggplot(reshaped_prof1,aes(x=Year)) +
+    geom_bar(aes(y = USD),stat="identity",size=0.1,fill=4) +
+    geom_line(aes(y = Percentage1*1000,group=1),size=1,color="red") +
+    geom_text(aes(x = factor(Year), y = USD, label = paste0(round(USD, 1))),
+    size = 5, color = "black", position = position_dodge(0.9), vjust = -0.3)+
+    geom_text(aes(x = factor(Year), y = Percentage1 * 1000, label = paste0(round(Percentage1, 1), "%")),
+    size = 5, color = "black", position = position_dodge(0.5), vjust = -0.5)+
+    scale_y_continuous(labels = scales::comma,name = element_blank(), sec.axis = sec_axis(~./100000,name = element_blank()))+
+    theme_bw()+
+    labs(title = "Doanh thu của các công ty Trung Quốc được liệt kê trong danh sách 100 công ty vũ khí lớn nhất thế giới và Tăng trưởng theo từng năm, giai đoạn 2015-21, triệu USD (cột trái) và % (cột phải)",caption="Nguồn: Tác giả tính toán theo dữ liệu của SIPRI (2022)") +
+    theme(axis.title.x = element_text(color = "black", size = 13),axis.title.y = element_text(color = "black", size = 13), plot.title = element_text(color = "black", size = 13), rect = element_blank())
+
+gprof
+
+```
+
+
+
+
+
+
+```{r}
+
+mafrica <- read_excel("China military industry.xlsx",sheet="China export in Africa")
+colnames(mafrica)[colnames(mafrica) == "Country...1"] <- "region"
+colnames(mafrica)[colnames(mafrica) == "Country...4"] <- "region1"
+
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+
+A_mapdata <- map_data("world")
+A_mapdata <- left_join(A_mapdata,mafrica,by="region")
+A_mapdata1 <- A_mapdata %>% filter(!is.na(A_mapdata$`Check`))
+
+map_A <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Type),color="white")+scale_fill_gradient(low=, high="4",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "So sánh sự tương đồng giữa các quốc gia nhập khẩu vũ khí của Trung Quốc (hình trái, tính tới năm 2021) và mắc nợ Trung Quốc với BRI (hình phải, tính tới năm 2023) tại Châu Phi")
+map_A
+
+map_B <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Debt),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(caption= "Nguồn: Tác giả tổng hợp từ Cortney Weinbaum và cộng sự (2022) và BU (2023)")
+map_B
+
+#Create a multiple graphs in one 
+map_AB <- grid.arrange(map_A, map_B, ncol = 2)
+```
+
+
+```{r}
+library(readxl)
+
+mafrica <- read_excel("China military industry.xlsx",sheet="China export in Africa")
+colnames(mafrica)[colnames(mafrica) == "Country...1"] <- "region"
+colnames(mafrica)[colnames(mafrica) == "Country...4"] <- "region1"
+
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+
+A_mapdata <- map_data("world")
+A_mapdata <- left_join(A_mapdata,mafrica,by="region")
+A_mapdata1 <- A_mapdata %>% filter(!is.na(A_mapdata$Check))
+
+map_A <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Type),color="white")+scale_fill_gradient(low=, high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "So sánh sự tương đồng giữa các quốc gia nhập khẩu vũ khí của Trung Quốc (hình trái, tính tới năm 2021) và mắc nợ Trung Quốc với BRI (hình phải, tính tới năm 2023) tại Châu Phi")
+map_A
+
+map_B <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Debt),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(caption="Nguồn: Tác giả tổng hợp từ Cortney Weinbaum và cộng sự (2022) và BU (2023")
+map_B
+
+library(gridExtra)
+
+map_AB <- grid.arrange(map_A, map_B, nrow = , ncol = 2)
+```
+
+

@@ -1,0 +1,459 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={China military industry},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{China military industry}
+\author{}
+\date{\vspace{-2.5em}2024-07-07}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Expenditure as value}
+\NormalTok{exp }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"R\&D exp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `` -> `...9`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{keepcountry }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"CHN"}\NormalTok{,}\StringTok{"JPN"}\NormalTok{,}\StringTok{"USA"}\NormalTok{,}\StringTok{"GBR"}\NormalTok{,}\StringTok{"DEU"}\NormalTok{,}\StringTok{"KOR"}\NormalTok{)}
+\NormalTok{exp }\OtherTok{\textless{}{-}}\NormalTok{ exp }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(exp}\SpecialCharTok{$}\NormalTok{LOCATION }\SpecialCharTok{\%in\%}\NormalTok{ keepcountry)}
+
+\DocumentationTok{\#\#Rename the regions}
+\FunctionTok{library}\NormalTok{(forcats)}
+\NormalTok{exp}\SpecialCharTok{$}\NormalTok{LOCATION }\OtherTok{\textless{}{-}} \FunctionTok{fct\_recode}\NormalTok{(exp}\SpecialCharTok{$}\NormalTok{LOCATION,}\StringTok{"Trung Quốc"}\OtherTok{=}\StringTok{"CHN"}\NormalTok{,}\StringTok{"Nhật Bản"}\OtherTok{=}\StringTok{"JPN"}\NormalTok{, }\StringTok{"Hoa Kỳ"}\OtherTok{=}\StringTok{"USA"}\NormalTok{,}\StringTok{"Vương quốc Anh"}\OtherTok{=}\StringTok{"GBR"}\NormalTok{,}\StringTok{"Đức"}\OtherTok{=}\StringTok{"DEU"}\NormalTok{,}\StringTok{"Hàn Quốc"}\OtherTok{=}\StringTok{"KOR"}\NormalTok{)}
+
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{gvalue }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(exp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ TIME, }\AttributeTok{y =}\NormalTok{ Value, }\AttributeTok{color =} \FunctionTok{factor}\NormalTok{(LOCATION))) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{stat=}\StringTok{"summary"}\NormalTok{,}\AttributeTok{fun=}\NormalTok{sum,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{linetype=}\FunctionTok{factor}\NormalTok{(LOCATION))) }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma)}\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Xu hướng chi tiêu cho hoạt động nghiên cứu và phát triển (R\&D) của Trung Quốc và một vài quốc gia, giai đoạn 2000{-}2021, theo đơn vị triệu USD"}\NormalTok{,}\AttributeTok{caption =} \StringTok{"Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}
+\NormalTok{gvalue}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Percentage of GDP}
+\NormalTok{per }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"\%GDP"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `` -> `...9`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{per }\OtherTok{\textless{}{-}}\NormalTok{ per }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(per}\SpecialCharTok{$}\NormalTok{LOCATION }\SpecialCharTok{\%in\%}\NormalTok{ keepcountry)}
+
+\DocumentationTok{\#\#Rename the regions}
+\NormalTok{per}\SpecialCharTok{$}\NormalTok{LOCATION }\OtherTok{\textless{}{-}} \FunctionTok{fct\_recode}\NormalTok{(per}\SpecialCharTok{$}\NormalTok{LOCATION,}\StringTok{"Trung Quốc"}\OtherTok{=}\StringTok{"CHN"}\NormalTok{,}\StringTok{"Nhật Bản"}\OtherTok{=}\StringTok{"JPN"}\NormalTok{, }\StringTok{"Hoa Kỳ"}\OtherTok{=}\StringTok{"USA"}\NormalTok{,}\StringTok{"Vương quốc Anh"}\OtherTok{=}\StringTok{"GBR"}\NormalTok{,}\StringTok{"Đức"}\OtherTok{=}\StringTok{"DEU"}\NormalTok{,}\StringTok{"Hàn Quốc"}\OtherTok{=}\StringTok{"KOR"}\NormalTok{)}
+
+\NormalTok{gper }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(per, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ TIME, }\AttributeTok{y =}\NormalTok{ Value, }\AttributeTok{color =} \FunctionTok{factor}\NormalTok{(LOCATION))) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{stat=}\StringTok{"summary"}\NormalTok{,}\AttributeTok{fun=}\NormalTok{sum,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{linetype=}\FunctionTok{factor}\NormalTok{(LOCATION))) }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma)}\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Xu hướng chi tiêu cho hoạt động nghiên cứu và phát triển (R\&D) của Trung Quốc và một vài quốc gia, giai đoạn 2000{-}2021, theo \% trong tổng GDP quốc gia"}\NormalTok{,}\AttributeTok{caption =} \StringTok{"Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}
+\NormalTok{gper}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gboth }\OtherTok{\textless{}{-}} \FunctionTok{grid.arrange}\NormalTok{(gvalue,gper, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gboth}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## TableGrob (2 x 1) "arrange": 2 grobs
+##   z     cells    name           grob
+## 1 1 (1-1,1-1) arrange gtable[layout]
+## 2 2 (2-2,1-1) arrange gtable[layout]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{def }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"R\&D on Def"}\NormalTok{,}\AttributeTok{skip=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `` -> `...2`
+## * `` -> `...4`
+## * `` -> `...5`
+## * `` -> `...6`
+## * `` -> `...7`
+## * `` -> `...8`
+## * `` -> `...9`
+## * `` -> `...10`
+## * `` -> `...11`
+## * `` -> `...12`
+## * `` -> `...13`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{keepcountry1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Germany"}\NormalTok{,}\StringTok{"Japan"}\NormalTok{,}\StringTok{"United States"}\NormalTok{,}\StringTok{"UK"}\NormalTok{,}\StringTok{"South Korea"}\NormalTok{,}\StringTok{"China"}\NormalTok{)}
+\NormalTok{def }\OtherTok{\textless{}{-}}\NormalTok{ def[,}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{9}\NormalTok{)] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(def}\SpecialCharTok{$}\NormalTok{Country }\SpecialCharTok{\%in\%}\NormalTok{ keepcountry1)}
+
+\DocumentationTok{\#\#Rename the countries}
+\NormalTok{def}\SpecialCharTok{$}\NormalTok{Country }\OtherTok{\textless{}{-}} \FunctionTok{fct\_recode}\NormalTok{(def}\SpecialCharTok{$}\NormalTok{Country,}\StringTok{"Đức"}\OtherTok{=}\StringTok{"Germany"}\NormalTok{,}\StringTok{"Nhật Bản"}\OtherTok{=}\StringTok{"Japan"}\NormalTok{, }\StringTok{"Hoa Kỳ"}\OtherTok{=}\StringTok{"United States"}\NormalTok{,}\StringTok{"Vương quốc Anh"}\OtherTok{=}\StringTok{"UK"}\NormalTok{,}\StringTok{"Trung Quốc"}\OtherTok{=}\StringTok{"China"}\NormalTok{,}\StringTok{"Hàn Quốc"}\OtherTok{=}\StringTok{"South Korea"}\NormalTok{)}
+
+\NormalTok{gdef }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(def, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ Country, }\AttributeTok{y =} \FunctionTok{as.numeric}\NormalTok{(...}\DecValTok{9}\NormalTok{), }\AttributeTok{fill=}\NormalTok{Country)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma)}\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\StringTok{"Hoa Kỳ"}\NormalTok{, }\StringTok{"Trung Quốc"}\NormalTok{, }\StringTok{"Hàn Quốc"}\NormalTok{, }\StringTok{"Vương quốc Anh"}\NormalTok{, }\StringTok{"Đức"}\NormalTok{, }\StringTok{"Nhật Bản"}\NormalTok{))}\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Chi tiêu R\&D cho quốc phòng của Trung Quốc và một vài quốc gia, năm 2018, triệu USD"}\NormalTok{,}\AttributeTok{caption =} \StringTok{"Nguồn: Tác giả tổng hợp theo dữ liệu của OECD (2023) và CSET (2019)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}
+
+\NormalTok{gdef}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prof }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"Profit of arms company"}\NormalTok{)}
+
+\NormalTok{prof }\OtherTok{\textless{}{-}}\NormalTok{ prof[}\FunctionTok{c}\NormalTok{(}\DecValTok{9}\SpecialCharTok{:}\DecValTok{10}\NormalTok{),]}
+
+\DocumentationTok{\#\#Transpose the data}
+\NormalTok{reshaped\_prof }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(prof[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]) }
+
+\DocumentationTok{\#\#Add a new column for the year }
+\NormalTok{Year }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2015}\SpecialCharTok{:}\DecValTok{2021}\NormalTok{)}
+
+\NormalTok{reshaped\_prof1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(reshaped\_prof,Year)}
+\FunctionTok{colnames}\NormalTok{(reshaped\_prof1)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"USD"} \CommentTok{\#Name a column that has no name}
+\FunctionTok{colnames}\NormalTok{(reshaped\_prof1)[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Percentage"}
+
+\NormalTok{reshaped\_prof1 }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(reshaped\_prof1) }\CommentTok{\#Convert vector to data frame}
+\NormalTok{reshaped\_prof1}\SpecialCharTok{$}\NormalTok{Year  }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(Year)}
+
+\FunctionTok{library}\NormalTok{(patchwork) }\CommentTok{\# To display 2 charts together}
+
+\NormalTok{reshaped\_prof1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(reshaped\_prof1,}\AttributeTok{Percentage1 =}\NormalTok{ reshaped\_prof1}\SpecialCharTok{$}\NormalTok{Percentage}\SpecialCharTok{*}\DecValTok{100}\NormalTok{)}
+
+
+\DocumentationTok{\#\#Draw the graph with two Y axis}
+\NormalTok{gprof }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(reshaped\_prof1,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Year)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ USD),}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{,}\AttributeTok{size=}\FloatTok{0.1}\NormalTok{,}\AttributeTok{fill=}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Percentage1}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{,}\AttributeTok{group=}\DecValTok{1}\NormalTok{),}\AttributeTok{size=}\DecValTok{1}\NormalTok{,}\AttributeTok{color=}\StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(Year), }\AttributeTok{y =}\NormalTok{ USD, }\AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(USD, }\DecValTok{1}\NormalTok{))),}
+    \AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.3}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(Year), }\AttributeTok{y =}\NormalTok{ Percentage1 }\SpecialCharTok{*} \DecValTok{1000}\NormalTok{, }\AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(Percentage1, }\DecValTok{1}\NormalTok{), }\StringTok{"\%"}\NormalTok{)),}
+    \AttributeTok{size =} \DecValTok{5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.5}\NormalTok{), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma,}\AttributeTok{name =} \FunctionTok{element\_blank}\NormalTok{(), }\AttributeTok{sec.axis =} \FunctionTok{sec\_axis}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{.}\SpecialCharTok{/}\DecValTok{100000}\NormalTok{,}\AttributeTok{name =} \FunctionTok{element\_blank}\NormalTok{()))}\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{()}\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Doanh thu của các công ty Trung Quốc được liệt kê trong danh sách 100 công ty vũ khí lớn nhất thế giới và Tăng trưởng theo từng năm, giai đoạn 2015{-}21, triệu USD (cột trái) và \% (cột phải)"}\NormalTok{,}\AttributeTok{caption=}\StringTok{"Nguồn: Tác giả tính toán theo dữ liệu của SIPRI (2022)"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{size =} \DecValTok{13}\NormalTok{),}\AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{size =} \DecValTok{13}\NormalTok{), }\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{size =} \DecValTok{13}\NormalTok{), }\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gprof}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mafrica }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"China export in Africa"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `Country` -> `Country...1`
+## * `Country` -> `Country...4`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(mafrica)[}\FunctionTok{colnames}\NormalTok{(mafrica) }\SpecialCharTok{==} \StringTok{"Country...1"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"region"}
+\FunctionTok{colnames}\NormalTok{(mafrica)[}\FunctionTok{colnames}\NormalTok{(mafrica) }\SpecialCharTok{==} \StringTok{"Country...4"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"region1"}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v lubridate 1.9.3     v stringr   1.5.1
+## v purrr     1.0.2     v tibble    3.2.1
+## v readr     2.1.5     v tidyr     1.3.1
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x gridExtra::combine() masks dplyr::combine()
+## x dplyr::filter()      masks stats::filter()
+## x dplyr::lag()         masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\NormalTok{A\_mapdata }\OtherTok{\textless{}{-}} \FunctionTok{map\_data}\NormalTok{(}\StringTok{"world"}\NormalTok{)}
+\NormalTok{A\_mapdata }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(A\_mapdata,mafrica,}\AttributeTok{by=}\StringTok{"region"}\NormalTok{)}
+\NormalTok{A\_mapdata1 }\OtherTok{\textless{}{-}}\NormalTok{ A\_mapdata }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(A\_mapdata}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Check}\StringTok{\textasciigrave{}}\NormalTok{))}
+
+\NormalTok{map\_A }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(A\_mapdata1,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{long,}\AttributeTok{y=}\NormalTok{lat,}\AttributeTok{group=}\NormalTok{group))}\SpecialCharTok{+}\FunctionTok{geom\_polygon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{Type),}\AttributeTok{color=}\StringTok{"white"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low=}\NormalTok{, }\AttributeTok{high=}\StringTok{"4"}\NormalTok{,}\AttributeTok{na.value =} \StringTok{"grey90"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}\SpecialCharTok{+}\FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"So sánh sự tương đồng giữa các quốc gia nhập khẩu vũ khí của Trung Quốc (hình trái, tính tới năm 2021) và mắc nợ Trung Quốc với BRI (hình phải, tính tới năm 2023) tại Châu Phi"}\NormalTok{)}
+\NormalTok{map\_A}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{map\_B }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(A\_mapdata1,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{long,}\AttributeTok{y=}\NormalTok{lat,}\AttributeTok{group=}\NormalTok{group))}\SpecialCharTok{+}\FunctionTok{geom\_polygon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{Debt),}\AttributeTok{color=}\StringTok{"white"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low=}\StringTok{"\#deebf7"}\NormalTok{, }\AttributeTok{high=}\StringTok{"\#3182bd"}\NormalTok{,}\AttributeTok{na.value =} \StringTok{"grey90"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}\SpecialCharTok{+}\FunctionTok{labs}\NormalTok{(}\AttributeTok{caption=} \StringTok{"Nguồn: Tác giả tổng hợp từ Cortney Weinbaum và cộng sự (2022) và BU (2023)"}\NormalTok{)}
+\NormalTok{map\_B}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create a multiple graphs in one }
+\NormalTok{map\_AB }\OtherTok{\textless{}{-}} \FunctionTok{grid.arrange}\NormalTok{(map\_A, map\_B, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-4-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+
+\NormalTok{mafrica }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"China military industry.xlsx"}\NormalTok{,}\AttributeTok{sheet=}\StringTok{"China export in Africa"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## * `Country` -> `Country...1`
+## * `Country` -> `Country...4`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(mafrica)[}\FunctionTok{colnames}\NormalTok{(mafrica) }\SpecialCharTok{==} \StringTok{"Country...1"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"region"}
+\FunctionTok{colnames}\NormalTok{(mafrica)[}\FunctionTok{colnames}\NormalTok{(mafrica) }\SpecialCharTok{==} \StringTok{"Country...4"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"region1"}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\NormalTok{A\_mapdata }\OtherTok{\textless{}{-}} \FunctionTok{map\_data}\NormalTok{(}\StringTok{"world"}\NormalTok{)}
+\NormalTok{A\_mapdata }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(A\_mapdata,mafrica,}\AttributeTok{by=}\StringTok{"region"}\NormalTok{)}
+\NormalTok{A\_mapdata1 }\OtherTok{\textless{}{-}}\NormalTok{ A\_mapdata }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(A\_mapdata}\SpecialCharTok{$}\NormalTok{Check))}
+
+\NormalTok{map\_A }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(A\_mapdata1,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{long,}\AttributeTok{y=}\NormalTok{lat,}\AttributeTok{group=}\NormalTok{group))}\SpecialCharTok{+}\FunctionTok{geom\_polygon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{Type),}\AttributeTok{color=}\StringTok{"white"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low=}\NormalTok{, }\AttributeTok{high=}\StringTok{"\#3182bd"}\NormalTok{,}\AttributeTok{na.value =} \StringTok{"grey90"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}\SpecialCharTok{+}\FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"So sánh sự tương đồng giữa các quốc gia nhập khẩu vũ khí của Trung Quốc (hình trái, tính tới năm 2021) và mắc nợ Trung Quốc với BRI (hình phải, tính tới năm 2023) tại Châu Phi"}\NormalTok{)}
+\NormalTok{map\_A}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{map\_B }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(A\_mapdata1,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{long,}\AttributeTok{y=}\NormalTok{lat,}\AttributeTok{group=}\NormalTok{group))}\SpecialCharTok{+}\FunctionTok{geom\_polygon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{Debt),}\AttributeTok{color=}\StringTok{"white"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low=}\StringTok{"\#deebf7"}\NormalTok{, }\AttributeTok{high=}\StringTok{"\#3182bd"}\NormalTok{,}\AttributeTok{na.value =} \StringTok{"grey90"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{(),}\AttributeTok{rect =} \FunctionTok{element\_blank}\NormalTok{())}\SpecialCharTok{+}\FunctionTok{labs}\NormalTok{(}\AttributeTok{caption=}\StringTok{"Nguồn: Tác giả tổng hợp từ Cortney Weinbaum và cộng sự (2022) và BU (2023"}\NormalTok{)}
+\NormalTok{map\_B}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+
+\NormalTok{map\_AB }\OtherTok{\textless{}{-}} \FunctionTok{grid.arrange}\NormalTok{(map\_A, map\_B, }\AttributeTok{nrow =}\NormalTok{ , }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{China-military-industry_files/figure-latex/unnamed-chunk-5-3.pdf}
+
+\end{document}
