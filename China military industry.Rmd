@@ -116,32 +116,6 @@ gprof
 
 
 
-
-```{r}
-
-mafrica <- read_excel("China military industry.xlsx",sheet="China export in Africa")
-colnames(mafrica)[colnames(mafrica) == "Country...1"] <- "region"
-colnames(mafrica)[colnames(mafrica) == "Country...4"] <- "region1"
-
-library(ggplot2)
-library(tidyverse)
-library(dplyr)
-
-A_mapdata <- map_data("world")
-A_mapdata <- left_join(A_mapdata,mafrica,by="region")
-A_mapdata1 <- A_mapdata %>% filter(!is.na(A_mapdata$`Check`))
-
-map_A <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Type),color="white")+scale_fill_gradient(low=, high="4",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(title = "So sánh sự tương đồng giữa các quốc gia nhập khẩu vũ khí của Trung Quốc (hình trái, tính tới năm 2021) và mắc nợ Trung Quốc với BRI (hình phải, tính tới năm 2023) tại Châu Phi")
-map_A
-
-map_B <- ggplot(A_mapdata1,aes(x=long,y=lat,group=group))+geom_polygon(aes(fill=Debt),color="white")+scale_fill_gradient(low="#deebf7", high="#3182bd",na.value = "grey90")+theme(axis.title.x = element_blank(),axis.title.y = element_blank(),rect = element_blank())+labs(caption= "Nguồn: Tác giả tổng hợp từ Cortney Weinbaum và cộng sự (2022) và BU (2023)")
-map_B
-
-#Create a multiple graphs in one 
-map_AB <- grid.arrange(map_A, map_B, ncol = 2)
-```
-
-
 ```{r}
 library(readxl)
 
